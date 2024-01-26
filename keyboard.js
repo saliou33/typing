@@ -19,7 +19,7 @@ for (let line of inputs) {
   keyboardElm.appendChild(rowElm);
 }
 
-export function listenKey(handleKeydown, hanleKeyup) {
+export function listenKey(handleKeydown, handleKeyup) {
   if (handleKeydown) {
     document.addEventListener("keydown", (e) => {
       document.getElementById(e.code)?.classList.add(ACTIVE);
@@ -27,10 +27,10 @@ export function listenKey(handleKeydown, hanleKeyup) {
     });
   }
 
-  if (hanleKeyup) {
+  if (handleKeyup) {
     document.addEventListener("keyup", (e) => {
       document.getElementById(e.code)?.classList.remove(ACTIVE);
-      hanleKeyup(e);
+      handleKeyup(e);
     });
   }
 }

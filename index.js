@@ -24,10 +24,9 @@ He attacks observe mr cottage inquiry am examine gravity. Are dear but near left
 Year kept on over so as this of. She steepest doubtful betrayed formerly him.
 Active one called uneasy our seeing see cousin tastes its. Ye am it formed indeed agreed relied piqued.`;
 
-let cursor = 0;
-let size = 0;
-
 document.body.onload = () => {
+  let cursor = 0;
+  let size = 0;
   const textboxElm = document.querySelector(".textbox");
 
   const createElement = (str, className) => {
@@ -40,7 +39,7 @@ document.body.onload = () => {
 
   const fillTextBox = (text) => {
     textboxElm.innerHTML = "";
-    size = text.split(EMPTY).length;
+    size = text.split(EMPTY).length + 1;
 
     let j = 0;
     const lines = text.split(NEXT_LINE);
@@ -67,8 +66,6 @@ document.body.onload = () => {
       }
       textboxElm.appendChild(lineElm);
     }
-
-    // document.getElementById(cursor).classList.add(NEXT);
   };
 
   const setCursor = (val) => {
@@ -85,14 +82,12 @@ document.body.onload = () => {
     const elm = document.getElementById(cursor);
 
     if (key === BACKSPACE) {
-      if (cursor >= 0) {
-        const prevElm = document.getElementById(cursor - 1 ? cursor - 1 : 0);
-        prevElm.classList.remove(CORRECT);
-        prevElm.classList.remove(INCORRECT);
-        elm.classList.remove(NEXT);
-        setCursor(cursor - 1);
-        prevElm.classList.add(NEXT);
-      }
+      const prevElm = document.getElementById(cursor - 1 >= 0 ? cursor - 1 : 0);
+      prevElm.classList.remove(CORRECT);
+      prevElm.classList.remove(INCORRECT);
+      elm.classList.remove(NEXT);
+      setCursor(cursor - 1);
+      prevElm.classList.add(NEXT);
     } else if (key.length === 1 || key === ENTER || key === SPACE) {
       key = key === SPACE ? SPACE_KEY : key == ENTER ? ENTER_KEY : key;
 
