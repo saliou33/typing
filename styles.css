@@ -1,0 +1,103 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  background: #1a2330;
+  font-family: sans-serif;
+}
+
+/* KEYBOARD */
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  background: rgb(215, 215, 215);
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.keyboard-input {
+  flex-grow: 1;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  text-align: center;
+  box-shadow: 1px 1px 5px rgb(102, 102, 102);
+}
+
+/* TEXTBOX */
+
+.textbox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff2e;
+  min-height: 30vh;
+  width: 100%;
+  gap: 0.2rem;
+  user-select: none;
+  caret-color: transparent;
+}
+
+.textbox::after {
+  position: absolute;
+  display: table;
+  content: "Cliquer pour taper";
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+  line-height: 30vh;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2.5px);
+  visibility: hidden;
+}
+
+.textbox:not(:focus)::after {
+  visibility: visible;
+}
+
+.textbox-line {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: #fff;
+  padding: 0.5rem;
+}
+
+/* .textbox-word {
+}
+
+.textbox-char {
+} */
+
+.next {
+  border-left: 1px solid black;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}
