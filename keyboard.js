@@ -22,7 +22,6 @@ for (let line of inputs) {
 export function listenKey(handleKeydown, hanleKeyup) {
   if (handleKeydown) {
     document.addEventListener("keydown", (e) => {
-      console.log(e);
       document.getElementById(e.code)?.classList.add(ACTIVE);
       handleKeydown(e);
     });
