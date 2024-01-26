@@ -30,7 +30,7 @@
     "p": "KeyP",
     "[": "BracketLeft",
     "]": "BracketRight",
-    "\\": "BackSlash"
+    "\\": "Backslash"
   },
   {
     "caps": "CapsLock",
@@ -48,7 +48,7 @@
     "enter": "Enter"
   },
   {
-    "shift": "Shift",
+    "shift": "ShiftLeft",
     "z": "KeyZ",
     "x": "KeyX",
     "c": "KeyC",
@@ -56,10 +56,10 @@
     "b": "KeyB",
     "n": "KeyN",
     "m": "KeyM",
-    ",": "Comman",
-    ".": "Dot",
+    ",": "Comma",
+    ".": "Period",
     "/": "Slash",
-    "shift": "Shift"
+    "rightshift": "ShiftRight"
   },
   {
     "Space": "Space"

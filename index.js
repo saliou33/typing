@@ -77,6 +77,8 @@ document.body.onload = () => {
     }
   };
 
+  const handleKeyup = () => {};
+
   const handleKeydown = (e) => {
     e.preventDefault();
     let key = e.key;
@@ -106,5 +108,5 @@ document.body.onload = () => {
   };
 
   fillTextBox(defaultText);
-  keyboard.listenKey(handleKeydown);
+  keyboard.listenKey(handleKeydown, handleKeyup);
 };
