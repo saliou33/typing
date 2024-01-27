@@ -1,18 +1,18 @@
 [
   {
-    "`": "Backquote",
-    "1": "Digit1",
-    "2": "Digit2",
-    "3": "Digit3",
-    "4": "Digit4",
-    "5": "Digit5",
-    "6": "Digit6",
-    "7": "Digit7",
-    "8": "Digit8",
-    "9": "Digit9",
-    "0": "Digit0",
-    "-": "Minus",
-    "=": "Equal",
+    "` ~": "Backquote",
+    "1 !": "Digit1",
+    "2 @": "Digit2",
+    "3 #": "Digit3",
+    "4 $": "Digit4",
+    "5 %": "Digit5",
+    "6 ^": "Digit6",
+    "7 &": "Digit7",
+    "8 *": "Digit8",
+    "9 (": "Digit9",
+    "0 )": "Digit0",
+    "- _": "Minus",
+    "= +": "Equal",
     "backpace": "Backspace"
   },
 
@@ -28,9 +28,9 @@
     "i": "KeyI",
     "o": "KeyO",
     "p": "KeyP",
-    "[": "BracketLeft",
-    "]": "BracketRight",
-    "\\": "Backslash"
+    "[ {": "BracketLeft",
+    "] }": "BracketRight",
+    "\\ |": "Backslash"
   },
   {
     "caps": "CapsLock",
@@ -43,8 +43,8 @@
     "j": "KeyJ",
     "k": "KeyK",
     "l": "KeyL",
-    ";": "SemiColor",
-    "'": "BackTick",
+    "; :": "Semicolon",
+    "' '": "Quote",
     "enter": "Enter"
   },
   {
@@ -56,9 +56,9 @@
     "b": "KeyB",
     "n": "KeyN",
     "m": "KeyM",
-    ",": "Comma",
-    ".": "Period",
-    "/": "Slash",
+    ", <": "Comma",
+    ". >": "Period",
+    "/ ?": "Slash",
     "rightshift": "ShiftRight"
   },
   {
