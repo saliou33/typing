@@ -9,11 +9,16 @@ const TEXT_KEY = "$33";
 
 const BACKSPACE = "Backspace";
 const SPACE = " ";
+const SPACE_REG = /\s/g;
 const SPACE_KEY = "˽";
+const SPACE_KEY_REG = /(˽)/g;
 const ENTER = "Enter";
+const TAB = "Tab";
+const TAB_KEY = "⇒";
+const TAB_REG = /\s\s\s\s/g;
 const ENTER_KEY = "↵";
-const WHITE_SPACE = /(\s+)/;
-const NEXT_LINE = /\n/;
+const ENTER_KEY_REG = /(?<=↵)/g;
+const NEXT_LINE_REG = /\n|\r\n/g;
 const EMPTY = "";
 
 const DOT = ".";
@@ -31,18 +36,22 @@ document.body.onload = () => {
   const timeElm = document.getElementById("time");
   const accElm = document.getElementById("accuracy");
   const scoreElm = document.getElementById("score");
+  const sliderCount = document.getElementById("slider-count");
 
   let cursor = 0;
   let size = 0;
   let lineOffset = 0;
+  let pages = 0;
   let currentText = "";
-  let allText = [];
+  let content = [];
   let max = 0;
+  let prevMax = 0;
   let ns = 0;
   let score = 0;
   let accuracy = 0;
   let interval = [];
 
+  // helper to create element
   const createElement = (str, className) => {
     const node = document.createElement(str);
     if (className) {
@@ -51,37 +60,43 @@ document.body.onload = () => {
     return node;
   };
 
-  const updateView = (text, resetStats) => {
-    // reset stats if text is passed
-    updateStats(resetStats);
+  const updateView = (text, reset) => {
+    // update stats using previous context
+    updateStats(reset);
 
+    // clear content
     cursor = 0;
     textboxElm.innerHTML = "";
 
+    // prepare content
     if (text) {
-      currentText = text;
-      allText = currentText.split(NEXT_LINE);
-      max = text.length + 1;
       size = 0;
       lineOffset = 0;
+
+      currentText = text
+        .replace(NEXT_LINE_REG, ENTER_KEY)
+        .replace(TAB_REG, TAB_KEY)
+        .replace(SPACE_REG, SPACE_KEY);
+
+      max = currentText.length;
+      content = currentText.split(ENTER_KEY_REG);
+      pages = Math.ceil(content.length / NUM_LINES);
     }
 
+    // update slider count text
+    sliderCount.innerHTML = `${Math.ceil(lineOffset / NUM_LINES) + 1}/${pages}`;
+
+    // get lines
+    const lines = content.slice(lineOffset, lineOffset + NUM_LINES);
+    size = lines.join(EMPTY).length;
+
+    // populate textbox
     let j = 0;
-
-    const lines = allText.slice(lineOffset, lineOffset + NUM_LINES);
-    size = lines.join(EMPTY).length + lines.length;
-
     for (let line of lines) {
       const lineElm = createElement("div", TEXT_LINE_CLASS);
-
-      const words = line
-        .split(WHITE_SPACE)
-        .map((w) => (w === SPACE ? SPACE_KEY : w));
-
-      words.push(ENTER_KEY);
+      const words = line.split(SPACE_KEY_REG);
       for (let word of words) {
         const wordElm = createElement("div", TEXT_WORD_CLASS);
-
         const chars = word.split(EMPTY);
         for (let char of chars) {
           const elm = createElement("span", TEXT_CHAR_CLASS);
@@ -90,24 +105,36 @@ document.body.onload = () => {
           wordElm.appendChild(elm);
           j++;
         }
-
         lineElm.appendChild(wordElm);
       }
       textboxElm.appendChild(lineElm);
     }
   };
 
+  // update cursor with boundary check
   const setCursor = (val) => {
-    if (val >= 0 && val <= size) {
-      cursor = val;
-    }
+    if (val >= 0 && val <= size) cursor = val;
   };
 
-  // key listener
+  // get key
+  const getKey = (key) => {
+    return key == SPACE
+      ? SPACE_KEY
+      : key == ENTER
+      ? ENTER_KEY
+      : key == TAB
+      ? TAB_KEY
+      : key;
+  };
+
+  // key up
+  const handleKeyup = () => {};
+  // key down
   const handleKeydown = (e) => {
     e.preventDefault();
-    let key = e.key;
-    const elm = document.getElementById(cursor < size ? cursor : size - 1);
+    let key = getKey(e.key);
+
+    const elm = document.getElementById(cursor);
 
     // handle class change and cursor
     if (key === BACKSPACE) {
@@ -117,9 +144,8 @@ document.body.onload = () => {
       elm.classList.remove(NEXT_CLASS);
       setCursor(cursor - 1);
       prevElm.classList.add(NEXT_CLASS);
-    } else if (key.length === 1 || key === ENTER || key === SPACE) {
-      key = key === SPACE ? SPACE_KEY : key == ENTER ? ENTER_KEY : key;
-
+    } else if (key.length == 1) {
+      //
       if (key === elm.innerText) {
         elm.classList.add(CORRECT_CLASS);
       } else {
@@ -132,29 +158,23 @@ document.body.onload = () => {
       }
     }
 
-    // if all chars in current offset have been typed
+    // if all chars in current line offset have been typed
     if (cursor === size) {
-      lineOffset += NUM_LINES;
-      cursor = 0;
-      max -= size;
-      if (max === 0) {
-        lineOffset = 0;
-      }
-      updateView();
+      slideRight();
     }
   };
-  const handleKeyup = () => {};
 
   //file import
-  const fileInput = document.getElementById("file");
-  const fileReader = new FileReader();
-  fileInput.onchange = () => {
-    const selectedFile = fileInput.files[0];
-    fileReader.readAsText(selectedFile);
-    fileReader.onload = () => {
-      let s = fileReader.result.replace(/\r\n/g, "\n");
-      if (fileReader.result) {
-        updateView(s);
+
+  const input = document.getElementById("file");
+  const reader = new FileReader();
+  input.onchange = () => {
+    const file = input.files[0];
+    reader.readAsText(file);
+    reader.onload = () => {
+      if (reader.result) {
+        saveText(reader.result);
+        updateView(reader.result);
       }
     };
   };
@@ -167,14 +187,16 @@ document.body.onload = () => {
 
   //paste from clipboard
   const handlePaste = () => {
-    navigator.clipboard.readText().then((s) => {
-      updateView(s);
+    navigator.clipboard.readText().then((text) => {
+      saveText(text);
+      updateView(text);
     });
   };
   document.getElementById("paste").onclick = handlePaste;
 
-  //reset to default text
+  //reset everything
   const handleReset = () => {
+    saveText(DEFAULT_TEXT);
     updateView(DEFAULT_TEXT, true);
   };
   document.getElementById("reset").onclick = handleReset;
@@ -182,12 +204,12 @@ document.body.onload = () => {
   //restart
   const handleRestart = () => {
     let text = getText();
-    if (!text) text = DEFAULT_TEXT;
+    if (!text) text = currentText;
     updateView(text);
   };
   document.getElementById("restart").onclick = handleReset;
 
-  //saveText to storage
+  //save text to storage
   const saveText = (text) => {
     if (text) {
       localStorage.setItem(TEXT_KEY, text);
@@ -204,7 +226,6 @@ document.body.onload = () => {
   // update statistics
   const updateStats = (reset) => {
     clearInterval(interval.shift());
-
     if (reset) {
       accuracy = 0;
       score = 0;
@@ -229,12 +250,32 @@ document.body.onload = () => {
     );
   };
 
+  //slider
+  const slideLeft = () => {
+    lineOffset = lineOffset > 0 ? lineOffset - NUM_LINES : 0;
+    max = prevMax;
+    if (lineOffset === 0) {
+      handleRestart();
+      return;
+    }
+    updateView();
+  };
+  document.getElementById("slider-left").onclick = slideLeft;
+  const slideRight = () => {
+    lineOffset += NUM_LINES;
+
+    prevMax = max;
+    max = max - size;
+
+    if (max === 0) {
+      handleRestart();
+      return;
+    }
+    updateView();
+  };
+  document.getElementById("slider-right").onclick = slideRight;
   // default mode
   handleRestart();
   // key listener
   keyboard.listenKey(handleKeydown, handleKeyup);
-  // save text
-  window.onbeforeunload = () => {
-    saveText();
-  };
 };

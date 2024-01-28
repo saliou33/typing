@@ -64,6 +64,10 @@ label {
   cursor: pointer;
 }
 
+.file {
+  width: 0;
+}
+
 /* STATS */
 
 .stats {
@@ -133,6 +137,56 @@ label {
   }
 }
 
+/* SLIDER */
+.slider {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.slider-btn {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  text-align: center;
+  box-shadow: 2px 2px 10px rgb(102, 102, 102);
+  cursor: pointer;
+}
+
+.slider-btn:hover {
+  background: #abaaaa87;
+}
+
+.slider-left {
+  clip-path: polygon(
+    40% 0%,
+    40% 20%,
+    100% 20%,
+    100% 80%,
+    40% 80%,
+    40% 100%,
+    0% 50%
+  );
+}
+
+.slider-right {
+  clip-path: polygon(
+    0% 20%,
+    60% 20%,
+    60% 0%,
+    100% 50%,
+    60% 100%,
+    60% 80%,
+    0% 80%
+  );
+}
+
+.slider-count {
+  color: white;
+}
+
 /* TEXTBOX */
 
 .textbox {
@@ -141,20 +195,18 @@ label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 10vh;
   width: 100%;
-  margin: 3rem 0;
-  gap: 0.1;
+  max-height: 30vh;
   user-select: none;
   caret-color: transparent;
-  color: #0000007e;
-  overflow: hidden;
+  color: #000;
+  text-wrap: wrap;
 }
 
 .textbox::before {
   position: absolute;
   display: block;
-  content: "Click to type";
+  content: "Click to view";
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -173,7 +225,6 @@ label {
   height: 100%;
   backdrop-filter: blur(2px);
   visibility: hidden;
-  overflow: hidden;
 }
 
 .textbox:not(:focus)::after,
@@ -193,14 +244,9 @@ label {
 }
 
 .correct {
-  color: #000;
+  color: #0000007e;
 }
 
 .incorrect {
   color: rgb(243, 59, 59);
-}
-
-/* */
-.file {
-  width: 0;
 }
