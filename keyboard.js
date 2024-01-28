@@ -8,8 +8,9 @@ const SPACE = " ";
 const EMPTY = "";
 
 export const fillKeyboard = (shift) => {
-  const keyboardElm = document.querySelector(".keyboard");
+  const keyboardElm = document.getElementById("keyboard");
   keyboardElm.innerHTML = "";
+
   for (let line of inputs) {
     let rowElm = document.createElement("div");
     rowElm.classList.add(KEYBOARD_ROW_CLASS);

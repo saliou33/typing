@@ -5,17 +5,86 @@
   padding: 0;
   margin: 0;
   outline: none;
+  border: 0;
+}
+
+html {
+  font-size: small;
+  font-family: sans-serif;
 }
 
 body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2rem;
   align-items: center;
-  background: #1a2330;
-  font-family: sans-serif;
+  gap: 1rem;
+  background: #8291a8;
+  padding: 2rem 0;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* NAV */
+.navbar {
+  display: flex;
+  justify-content: center;
+  max-width: 30rem;
+  padding: 1.5rem;
+}
+
+/* CONTROLS */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  background: rgb(215, 215, 215);
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+}
+
+.controls-item {
+  flex-grow: 1;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  text-align: center;
+  box-shadow: 1px 1px 5px rgb(102, 102, 102);
+}
+
+.controls-item:hover {
+  background: #abaaaa87;
+  cursor: pointer;
+}
+
+/* STATS */
+
+.stats {
+  display: flex;
+  background: rgb(215, 215, 215);
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  flex-wrap: wrap;
+}
+
+.stats-item {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  box-shadow: 1px 1px 5px rgb(102, 102, 102);
 }
 
 /* KEYBOARD */
@@ -40,13 +109,28 @@ body {
   background: #fff;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  padding: 0.8rem 1rem;
+  padding: 0.6rem 0.8rem;
   text-align: center;
   box-shadow: 1px 1px 5px rgb(102, 102, 102);
 }
 
 .active {
-  background: #7b7a7a;
+  background: #abaaaa87;
+}
+
+@media screen and (max-width: 768px) {
+  .keyboard {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+  .keyboard-row {
+    gap: 0.25rem;
+  }
+
+  .keyboard-input {
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.5rem;
+  }
 }
 
 /* TEXTBOX */
@@ -55,28 +139,45 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #ffffff2e;
-  min-height: 30vh;
+  justify-content: center;
+  align-items: center;
+  min-height: 10vh;
   width: 100%;
-  gap: 0.2rem;
+  margin: 3rem 0;
+  gap: 0.1;
   user-select: none;
   caret-color: transparent;
+  color: #0000007e;
+  overflow: hidden;
 }
 
-.textbox::after {
+.textbox::before {
   position: absolute;
-  display: table;
+  display: block;
   content: "Click to type";
-  text-align: center;
-  background: rgba(255, 255, 255, 0.6);
-  width: 100%;
-  height: 100%;
-  line-height: 35vh;
-  backdrop-filter: blur(2.5px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
   visibility: hidden;
 }
 
-.textbox:not(:focus)::after {
+.textbox::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.556);
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.textbox:not(:focus)::after,
+.textbox:not(:focus)::before {
   visibility: visible;
 }
 
@@ -84,24 +185,22 @@ body {
   display: flex;
   gap: 0.2rem;
   flex-wrap: wrap;
-  background: rgb(215, 215, 215);
   padding: 0.5rem;
 }
-
-/* .textbox-word {
-}
-
-.textbox-char {
-} */
 
 .next {
   border-left: 1px solid black;
 }
 
 .correct {
-  color: green;
+  color: #000;
 }
 
 .incorrect {
-  color: red;
+  color: rgb(243, 59, 59);
+}
+
+/* */
+.file {
+  width: 0;
 }

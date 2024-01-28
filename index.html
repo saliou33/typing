@@ -7,10 +7,31 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="textbox" contenteditable="true"></div>
-    <div class="keyboard"></div>
+    <div class="navbar">
+      <div class="stats">
+        <div class="stats-item">Time: <span id="time"></span></div>
+        <div class="stats-item">
+          Accuracy: <span id="accuracy"></span>
+        </div>
+        <div class="stats-item">
+          Score: </span><span id="score"></span>
+        </div>
+      </div>
 
+      <div class="controls">
+        <label class="controls-item" for="file">
+          Import
+          <input type="file" id="file" class="file" />
+        </label>
+        <button class="controls-item" id="paste">Paste</button>
+        <button class="controls-item" id="restart">Restart</button>
+        <button class="controls-item" id="clear">Clear</button>
+        <button class="controls-item" id="reset">Reset</button>
+      </div>
+    </div>
+
+    <div class="textbox" id="textbox" contenteditable="true"></div>
+    <div class="keyboard" id="keyboard"></div>
     <script src="index.js" type="module"></script>
-    <script src="keyboard.js" type="module"></script>
   </body>
 </html>
