@@ -42,7 +42,7 @@ document.body.onload = () => {
   let size = 0;
   let lineOffset = 0;
   let pages = 0;
-  let currentText = "";
+  let currentText = DEFAULT_TEXT;
   let content = [];
   let max = 0;
   let prevMax = 0;
