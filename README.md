@@ -1,3 +1,3 @@
 # Touch Typing
 
-Vanilla js touch typing
+Vanilla js touch typing with keyboard
