@@ -4,7 +4,7 @@ const TEXT_LINE_CLASS = "textbox-line";
 const TEXT_WORD_CLASS = "textbox-word";
 const TEXT_CHAR_CLASS = "textbox-char";
 const DEFAULT_TEXT =
-  "Up branch to easily missed by do.\nAdmiration considered acceptance too led one melancholy expression.\nAre will took form the nor true. Winding enjoyed minuter her letters evident use eat colonel.\nHe attacks observe mr cottage inquiry am examine gravity. Are dear but near left was.\nYear kept on over so as this of. She steepest doubtful betrayed formerly him.\nActive one called uneasy our seeing see cousin tastes its. Ye am it formed indeed agreed relied piqued.";
+  "Up branch to easily missed by do.\nAdmiration considered acceptance too led one melancholy expression.\nAre will took form the nor true. Winding enjoyed minuter her letters evident use eat colonel.\nHe attacks observe mr cottage inquiry am examine gravity. Are dear but near left was.\nYear kept on over so as this of. She steepest doubtful betrayed formerly him.\n\nActive one called uneasy our seeing see cousin tastes its. Ye am it formed indeed agreed relied piqued.";
 const TEXT_KEY = "$33";
 
 const BACKSPACE = "Backspace";
