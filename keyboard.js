@@ -1,4 +1,10 @@
-import inputs from "./qwerty.json" assert { type: "json" };
+let inputs = [];
+
+await fetch("./qwerty.json")
+  .then(async (resp) => {
+    inputs = await resp.json();
+  })
+  .catch((error) => console.log(error));
 
 const KEYBOARD_ROW_CLASS = "keyboard-row";
 const KEYBOARD_INPUT_CLASS = "keyboard-input";
